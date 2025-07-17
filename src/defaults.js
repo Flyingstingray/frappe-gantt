@@ -75,7 +75,7 @@ const DEFAULT_VIEW_MODES = [
         lower_text: formatWeek,
         upper_text: (d, ld, lang) =>
             !ld || d.getMonth() !== ld.getMonth()
-                ? date_utils.format(d, 'MMMM', lang)
+                ? date_utils.format(d, 'MMMM YYYY', lang)
                 : '',
         thick_line: (d) => d.getDate() >= 1 && d.getDate() <= 7,
         upper_text_frequency: 4,
