@@ -798,7 +798,7 @@ const b = [
       n.chart.options.language
     );
     n.set_details(
-      `${t} - ${e} (${n.task.actual_duration} days${n.task.ignored_duration ? " + " + n.task.ignored_duration + " excluded" : ""})<br/>Progress: ${Math.floor(n.task.progress * 100) / 100}%`
+      `${t} - ${e} (${n.task.actual_duration} days${n.task.ignored_duration ? " + " + n.task.ignored_duration + " excluded" : ""})`
     );
   },
   popup_on: "click",
