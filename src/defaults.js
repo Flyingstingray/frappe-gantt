@@ -62,7 +62,7 @@ const DEFAULT_VIEW_MODES = [
                 : '',
         upper_text: (d, ld, lang) =>
             !ld || d.getMonth() !== ld.getMonth()
-                ? date_utils.format(d, 'MMMM', lang)
+                ? date_utils.format(d, 'MMMM YYYY', lang)
                 : '',
         thick_line: (d) => d.getDay() === 1,
     },
