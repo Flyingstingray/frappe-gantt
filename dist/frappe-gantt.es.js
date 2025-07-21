@@ -733,7 +733,7 @@ const b = [
     date_format: "YYYY-MM-DD",
     step: "1d",
     lower_text: (n, t, e) => !t || n.getDate() !== t.getDate() ? d.format(n, "D", e) : "",
-    upper_text: (n, t, e) => !t || n.getMonth() !== t.getMonth() ? d.format(n, "MMMM", e) : "",
+    upper_text: (n, t, e) => !t || n.getMonth() !== t.getMonth() ? d.format(n, "MMMM YYYY", e) : "",
     thick_line: (n) => n.getDay() === 1
   },
   {
