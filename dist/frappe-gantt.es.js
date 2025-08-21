@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", Y = "minute", L = "second", S = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", S = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -91,7 +91,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", L = "second"
       n.getDate() + (e === M ? t : 0),
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === Y ? t : 0),
-      n.getSeconds() + (e === L ? t : 0),
+      n.getSeconds() + (e === T ? t : 0),
       n.getMilliseconds() + (e === S ? t : 0)
     ];
     return new Date(...i);
@@ -103,7 +103,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", L = "second"
       [M]: 4,
       [D]: 3,
       [Y]: 2,
-      [L]: 1,
+      [T]: 1,
       [S]: 0
     };
     function i(r) {
@@ -117,7 +117,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", L = "second"
       i(M) ? 0 : n.getHours(),
       i(D) ? 0 : n.getMinutes(),
       i(Y) ? 0 : n.getSeconds(),
-      i(L) ? 0 : n.getMilliseconds()
+      i(T) ? 0 : n.getMilliseconds()
     ];
     return new Date(...s);
   },
@@ -170,7 +170,7 @@ function f(n, t) {
     i === "append_to" ? t.append_to.appendChild(e) : i === "innerHTML" ? e.innerHTML = t.innerHTML : i === "clipPath" ? e.setAttribute("clip-path", "url(#" + t[i] + ")") : e.setAttribute(i, t[i]);
   return e;
 }
-function T(n, t, e, i) {
+function L(n, t, e, i) {
   const s = W(n, t, e, i);
   if (s === n) {
     const r = document.createEvent("HTMLEvents");
@@ -347,7 +347,7 @@ class F {
       ry: this.corner_radius,
       class: "bar",
       append_to: this.bar_group
-    }), this.task.color && (this.$bar.style.fill = this.task.color), T(this.$bar, "width", 0, this.width), this.invalid && this.$bar.classList.add("bar-invalid");
+    }), this.task.color && (this.$bar.style.fill = this.task.color), L(this.$bar, "width", 0, this.width), this.invalid && this.$bar.classList.add("bar-invalid");
   }
   draw_expected_progress_bar() {
     this.invalid || (this.$expected_bar_progress = f("rect", {
@@ -359,7 +359,7 @@ class F {
       ry: this.corner_radius,
       class: "bar-expected-progress",
       append_to: this.bar_group
-    }), T(
+    }), L(
       this.$expected_bar_progress,
       "width",
       0,
@@ -390,7 +390,7 @@ class F {
       width: this.width,
       left: e
     });
-    this.$date_highlight = i, this.gantt.$lower_header.prepend(this.$date_highlight), T(this.$bar_progress, "width", 0, this.progress_width);
+    this.$date_highlight = i, this.gantt.$lower_header.prepend(this.$date_highlight), L(this.$bar_progress, "width", 0, this.progress_width);
   }
   calculate_progress_width() {
     const t = this.$bar.getWidth(), e = this.x + t, i = this.gantt.config.ignored_positions.reduce((h, l) => h + (l >= this.x && l < e), 0) * this.gantt.config.column_width;
@@ -631,14 +631,7 @@ class F {
   update_label_position() {
     const t = this.bar_group.querySelector(".img_mask") || "", e = this.$bar, i = this.group.querySelector(".bar-label"), s = this.group.querySelector(".bar-img");
     let r = 5, a = this.image_size + 10;
-    const o = i.getBBox().width, h = e.getWidth();
-    o > h ? (i.classList.add("big"), s ? (s.setAttribute("x", e.getEndX() + r), t.setAttribute("x", e.getEndX() + r), i.setAttribute("x", e.getEndX() + a)) : i.setAttribute("x", e.getEndX() + r)) : (i.classList.remove("big"), s ? (s.setAttribute("x", e.getX() + r), t.setAttribute("x", e.getX() + r), i.setAttribute(
-      "x",
-      e.getX() + h / 2 + a
-    )) : i.setAttribute(
-      "x",
-      e.getX() + h / 2 - o / 2
-    ));
+    i.getBBox().width, e.getWidth(), i.classList.add("big"), s ? (s.setAttribute("x", e.getEndX() + r), t.setAttribute("x", e.getEndX() + r), i.setAttribute("x", e.getEndX() + a)) : i.setAttribute("x", e.getEndX() + r);
   }
   update_handle_position() {
     if (this.invalid || this.gantt.options.readonly) return;
