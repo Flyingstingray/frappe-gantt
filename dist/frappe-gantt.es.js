@@ -113,7 +113,8 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
     const s = [
       n.getFullYear(),
       i(v) ? 0 : n.getMonth(),
-      i(k) ? 1 : n.getDate(),
+      i(k) ? 0 : n.getDate(),
+      //should_reset(MONTH) ? 1 : date.getDate(),
       i(M) ? 0 : n.getHours(),
       i(D) ? 0 : n.getMinutes(),
       i(Y) ? 0 : n.getSeconds(),
