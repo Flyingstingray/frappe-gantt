@@ -601,7 +601,7 @@ export default class Bar {
         //     x = (diff * column_width) / 30;
         // }
 
-        this.x = x;
+        this.x = Math.round(x);
     }
 
     compute_y() {
@@ -616,6 +616,7 @@ export default class Bar {
             duration_in_days = 0;
         for (
             let d = new Date(this.task._start);
+            /*THIS IS CHANGED*/
             d <= this.task._end;
             d.setDate(d.getDate() + 1)
         ) {
