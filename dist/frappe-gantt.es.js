@@ -165,6 +165,15 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
   },
   get_days_in_year(n) {
     return n.getFullYear() % 4 ? 365 : 366;
+  },
+  month_width(n, t) {
+    return get_days_in_month(n) * t.column_width / 30;
+  },
+  cumulative_month_width(n, t) {
+    let e = new Date(t.gantt_start), i = 0;
+    for (; e < n; )
+      i += monthWidth(e, t.config), e.setMonth(e.getMonth() + 1);
+    return i;
   }
 };
 function x(n, t, e) {
@@ -1098,7 +1107,7 @@ class B {
           d: `M ${t} ${e} v ${i}`,
           class: l,
           append_to: this.layers.grid
-        }), this.view_is("month") ? t += Math.round(d.get_days_in_month(h) * this.config.column_width / 30) : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
+        }), this.view_is("month") ? t = cumulativeMonthWidth(h, this.gantt) : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
       }
   }
   highlight_holidays() {

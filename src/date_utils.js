@@ -308,6 +308,21 @@ export default {
     get_days_in_year(date) {
         return date.getFullYear() % 4 ? 365 : 366;
     },
+
+    month_width(date, config) {
+        const daysInMonth = get_days_in_month(date);
+        return (daysInMonth * config.column_width) / 30;
+    },
+
+    cumulative_month_width(date, gantt) {
+        let start = new Date(gantt.gantt_start);
+        let x = 0;
+        while (start < date) {
+            x += monthWidth(start, gantt.config);
+            start.setMonth(start.getMonth() + 1);
+        }
+        return x;
+    },
 };
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
