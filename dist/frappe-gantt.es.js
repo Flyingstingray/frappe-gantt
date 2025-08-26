@@ -601,7 +601,7 @@ class F {
   }
   compute_duration() {
     let t = 0, e = 0;
-    for (let i = new Date(this.task._start); i < this.task._end; i.setDate(i.getDate() + 1))
+    for (let i = new Date(this.task._start); i <= this.task._end; i.setDate(i.getDate() + 1))
       e++, !this.gantt.config.ignored_dates.find(
         (s) => s.getTime() === i.getTime()
       ) && (!this.gantt.config.ignored_function || !this.gantt.config.ignored_function(i)) && t++;

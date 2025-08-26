@@ -616,7 +616,7 @@ export default class Bar {
             duration_in_days = 0;
         for (
             let d = new Date(this.task._start);
-            d < this.task._end;
+            d <= this.task._end;
             d.setDate(d.getDate() + 1)
         ) {
             duration_in_days++;
