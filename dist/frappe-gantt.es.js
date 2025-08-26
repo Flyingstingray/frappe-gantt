@@ -592,21 +592,27 @@ class F {
     this.expected_progress = d.diff(d.today(), this.task._start, "hour") / this.gantt.config.step, this.expected_progress = (this.expected_progress < this.duration ? this.expected_progress : this.duration) * 100 / this.duration;
   }
   compute_x() {
-    const { column_width: t } = this.gantt.config, e = this.task._start, i = this.gantt.gantt_start;
-    let r = d.diff(e, i, this.gantt.config.unit) / this.gantt.config.step * t;
-    this.x = Math.round(r);
+    const { column_width: t } = this.gantt.config, e = this.task._start, i = this.gantt.gantt_start, s = d.diff(e, i, this.gantt.config.unit) / this.gantt.config.step;
+    let r = s * t;
+    console.log(
+      "Task:",
+      this.task.name,
+      "Start:",
+      e,
+      "Gantt start:",
+      i,
+      "Diff:",
+      s,
+      "X:",
+      r
+    ), this.x = r;
   }
   compute_y() {
     this.y = this.gantt.config.header_height + this.gantt.options.padding / 2 + this.task._index * (this.height + this.gantt.options.padding);
   }
   compute_duration() {
     let t = 0, e = 0;
-    for (
-      let i = new Date(this.task._start);
-      /*THIS IS CHANGED*/
-      i <= this.task._end;
-      i.setDate(i.getDate() + 1)
-    )
+    for (let i = new Date(this.task._start); i < this.task._end; i.setDate(i.getDate() + 1))
       e++, !this.gantt.config.ignored_dates.find(
         (s) => s.getTime() === i.getTime()
       ) && (!this.gantt.config.ignored_function || !this.gantt.config.ignored_function(i)) && t++;

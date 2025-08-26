@@ -601,7 +601,15 @@ export default class Bar {
         //     x = (diff * column_width) / 30;
         // }
 
-        this.x = Math.round(x);
+        console.log(
+            "Task:", this.task.name,
+            "Start:", task_start,
+            "Gantt start:", gantt_start,
+            "Diff:", diff,
+            "X:", x
+        );
+
+        this.x = x;
     }
 
     compute_y() {
@@ -616,8 +624,7 @@ export default class Bar {
             duration_in_days = 0;
         for (
             let d = new Date(this.task._start);
-            /*THIS IS CHANGED*/
-            d <= this.task._end;
+            d < this.task._end;
             d.setDate(d.getDate() + 1)
         ) {
             duration_in_days++;
