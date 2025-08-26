@@ -601,13 +601,13 @@ export default class Bar {
         //     x = (diff * column_width) / 30;
         // }
 
-        console.log(
-            "Task:", this.task.name,
-            "Start:", task_start,
-            "Gantt start:", gantt_start,
-            "Diff:", diff,
-            "X:", x
-        );
+        //console.log(
+        //    "Task:", this.task.name,
+        //    "Start:", task_start,
+        //    "Gantt start:", gantt_start,
+        //    "Diff:", diff,
+        //    "X:", x
+        //);
 
         this.x = x;
     }
