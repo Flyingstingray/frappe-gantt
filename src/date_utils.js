@@ -134,6 +134,7 @@ export default {
         hours = minutes / 60;
         days = hours / 24;
 
+        /*
         if (scale === 'month') {
             let yearDiff = date_a.getFullYear() - date_b.getFullYear();
             let monthDiff = date_a.getMonth() - date_b.getMonth();
@@ -150,17 +151,17 @@ export default {
             months += dayFraction;
 
             return Math.round(months * 100) / 100;
-        }
+        }*/
 
         // Calculate months across years
-        //let yearDiff = date_a.getFullYear() - date_b.getFullYear();
-        //let monthDiff = date_a.getMonth() - date_b.getMonth();
+        let yearDiff = date_a.getFullYear() - date_b.getFullYear();
+        let monthDiff = date_a.getMonth() - date_b.getMonth();
         // calculate extra
-        //monthDiff += (days % 30) / 30;
+        monthDiff += (days % 30) / 30;
 
         /* If monthDiff is negative, date_b is in an earlier month than
         date_a and thus subtracted from the year difference in months */
-        //months = yearDiff * 12 + monthDiff;
+        months = yearDiff * 12 + monthDiff;
         /* If date_a's (e.g. march 1st) day of the month is smaller than date_b (e.g. february 28th),
         adjust the month difference */
         //if (date_a.getDate() < date_b.getDate()) {

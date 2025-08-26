@@ -52,24 +52,19 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       MMMM: a,
       MMM: s.format(n)
     };
-    let _ = t;
-    const l = [];
+    let l = t;
+    const _ = [];
     return Object.keys(h).sort((g, c) => c.length - g.length).forEach((g) => {
-      _.includes(g) && (_ = _.replaceAll(g, `$${l.length}`), l.push(h[g]));
-    }), l.forEach((g, c) => {
-      _ = _.replaceAll(`$${c}`, g);
-    }), _;
+      l.includes(g) && (l = l.replaceAll(g, `$${_.length}`), _.push(h[g]));
+    }), _.forEach((g, c) => {
+      l = l.replaceAll(`$${c}`, g);
+    }), l;
   },
   diff(n, t, e = "day") {
-    let i, s, r, a, o, h, _;
-    if (i = n - t + (t.getTimezoneOffset() - n.getTimezoneOffset()) * 6e4, s = i / 1e3, a = s / 60, r = a / 60, o = r / 24, e === "month") {
-      n.getFullYear() - t.getFullYear(), n.getMonth() - t.getMonth();
-      let l = new Date(t);
-      l.setFullYear(n.getFullYear()), l.setMonth(n.getMonth());
-      let g = this.get_days_in_month(n), p = (n.getDate() - l.getDate()) / g;
-      return h += p, Math.round(h * 100) / 100;
-    }
-    return _ = h / 12, e.endsWith("s") || (e += "s"), Math.round(
+    let i, s, r, a, o, h, l;
+    i = n - t + (t.getTimezoneOffset() - n.getTimezoneOffset()) * 6e4, s = i / 1e3, a = s / 60, r = a / 60, o = r / 24;
+    let _ = n.getFullYear() - t.getFullYear(), g = n.getMonth() - t.getMonth();
+    return g += o % 30 / 30, h = _ * 12 + g, l = h / 12, e.endsWith("s") || (e += "s"), Math.round(
       {
         milliseconds: i,
         seconds: s,
@@ -77,7 +72,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
         hours: r,
         days: o,
         months: h,
-        years: _
+        years: l
       }[e] * 100
     ) / 100;
   },
@@ -167,7 +162,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
 function x(n, t, e) {
   return n = n + "", t = t >> 0, e = String(typeof e < "u" ? e : " "), n.length > t ? String(n) : (t = t - n.length, t > e.length && (e += e.repeat(t / e.length)), e.slice(0, t) + String(n));
 }
-function u(n, t) {
+function p(n, t) {
   return typeof n == "string" ? (t || document).querySelector(n) : n || null;
 }
 function f(n, t) {
@@ -186,7 +181,7 @@ function L(n, t, e, i) {
 function W(n, t, e, i, s = "0.4s", r = "0.1s") {
   const a = n.querySelector("animate");
   if (a)
-    return u.attr(a, {
+    return p.attr(a, {
       attributeName: t,
       from: e,
       to: i,
@@ -216,30 +211,30 @@ function q(n) {
     "ease-in-out": ".42 0 .58 1"
   }[n];
 }
-u.on = (n, t, e, i) => {
-  i ? u.delegate(n, t, e, i) : (i = e, u.bind(n, t, i));
+p.on = (n, t, e, i) => {
+  i ? p.delegate(n, t, e, i) : (i = e, p.bind(n, t, i));
 };
-u.off = (n, t, e) => {
+p.off = (n, t, e) => {
   n.removeEventListener(t, e);
 };
-u.bind = (n, t, e) => {
+p.bind = (n, t, e) => {
   t.split(/\s+/).forEach(function(i) {
     n.addEventListener(i, e);
   });
 };
-u.delegate = (n, t, e, i) => {
+p.delegate = (n, t, e, i) => {
   n.addEventListener(t, function(s) {
     const r = s.target.closest(e);
     r && (s.delegatedTarget = r, i.call(this, s, r));
   });
 };
-u.closest = (n, t) => t ? t.matches(n) ? t : u.closest(n, t.parentNode) : null;
-u.attr = (n, t, e) => {
+p.closest = (n, t) => t ? t.matches(n) ? t : p.closest(n, t.parentNode) : null;
+p.attr = (n, t, e) => {
   if (!e && typeof t == "string")
     return n.getAttribute(t);
   if (typeof t == "object") {
     for (let i in t)
-      u.attr(n, i, t[i]);
+      p.attr(n, i, t[i]);
     return;
   }
   n.setAttribute(t, e);
@@ -258,29 +253,29 @@ class C {
     const a = this.from_task.task._index > this.to_task.task._index;
     let o = this.gantt.options.arrow_curve;
     const h = a ? 1 : 0;
-    let _ = a ? -o : o;
+    let l = a ? -o : o;
     if (this.to_task.$bar.getX() <= this.from_task.$bar.getX() + this.gantt.options.padding) {
-      let l = this.gantt.options.padding / 2 - o;
-      l < 0 && (l = 0, o = this.gantt.options.padding / 2, _ = a ? -o : o);
-      const g = this.to_task.$bar.getY() + this.to_task.$bar.getHeight() / 2 - _, c = this.to_task.$bar.getX() - this.gantt.options.padding;
+      let _ = this.gantt.options.padding / 2 - o;
+      _ < 0 && (_ = 0, o = this.gantt.options.padding / 2, l = a ? -o : o);
+      const g = this.to_task.$bar.getY() + this.to_task.$bar.getHeight() / 2 - l, c = this.to_task.$bar.getX() - this.gantt.options.padding;
       this.path = `
                 M ${t} ${i}
-                v ${l}
+                v ${_}
                 a ${o} ${o} 0 0 1 ${-o} ${o}
                 H ${c}
-                a ${o} ${o} 0 0 ${h} ${-o} ${_}
+                a ${o} ${o} 0 0 ${h} ${-o} ${l}
                 V ${g}
-                a ${o} ${o} 0 0 ${h} ${o} ${_}
+                a ${o} ${o} 0 0 ${h} ${o} ${l}
                 L ${s} ${r}
                 m -5 -5
                 l 5 5
                 l -5 5`;
     } else {
       s < t + o && (o = s - t);
-      let l = a ? r + o : r - o;
+      let _ = a ? r + o : r - o;
       this.path = `
               M ${t} ${i}
-              V ${l}
+              V ${_}
               a ${o} ${o} 0 0 ${h} ${o} ${o}
               L ${s} ${r}
               m -5 -5
@@ -399,9 +394,9 @@ class F {
     this.$date_highlight = i, this.gantt.$lower_header.prepend(this.$date_highlight), L(this.$bar_progress, "width", 0, this.progress_width);
   }
   calculate_progress_width() {
-    const t = this.$bar.getWidth(), e = this.x + t, i = this.gantt.config.ignored_positions.reduce((h, _) => h + (_ >= this.x && _ < e), 0) * this.gantt.config.column_width;
+    const t = this.$bar.getWidth(), e = this.x + t, i = this.gantt.config.ignored_positions.reduce((h, l) => h + (l >= this.x && l < e), 0) * this.gantt.config.column_width;
     let s = (t - i) * this.task.progress / 100;
-    const r = this.x + s, a = this.gantt.config.ignored_positions.reduce((h, _) => h + (_ >= this.x && _ < r), 0) * this.gantt.config.column_width;
+    const r = this.x + s, a = this.gantt.config.ignored_positions.reduce((h, l) => h + (l >= this.x && l < r), 0) * this.gantt.config.column_width;
     s += a;
     let o = this.gantt.get_ignored_region(
       this.x + s
@@ -488,21 +483,21 @@ class F {
       }), this.handles.push(this.$handle_progress);
     }
     for (let i of this.handles)
-      u.on(i, "mouseenter", () => i.classList.add("active")), u.on(i, "mouseleave", () => i.classList.remove("active"));
+      p.on(i, "mouseenter", () => i.classList.add("active")), p.on(i, "mouseleave", () => i.classList.remove("active"));
   }
   bind() {
     this.invalid || this.setup_click_event();
   }
   setup_click_event() {
     let t = this.task.id;
-    u.on(this.group, "mouseover", (s) => {
+    p.on(this.group, "mouseover", (s) => {
       this.gantt.trigger_event("hover", [
         this.task,
         s.screenX,
         s.screenY,
         s
       ]);
-    }), this.gantt.options.popup_on === "click" && u.on(this.group, "mouseup", (s) => {
+    }), this.gantt.options.popup_on === "click" && p.on(this.group, "mouseup", (s) => {
       const r = s.offsetX || s.layerX;
       if (this.$handle_progress) {
         const a = +this.$handle_progress.getAttribute("cx");
@@ -516,7 +511,7 @@ class F {
       });
     });
     let e;
-    u.on(this.group, "mouseenter", (s) => {
+    p.on(this.group, "mouseenter", (s) => {
       e = setTimeout(() => {
         this.gantt.options.popup_on === "hover" && this.gantt.show_popup({
           x: s.offsetX || s.layerX,
@@ -525,16 +520,16 @@ class F {
           target: this.$bar
         }), this.gantt.$container.querySelector(`.highlight-${t}`).classList.remove("hide");
       }, 200);
-    }), u.on(this.group, "mouseleave", () => {
+    }), p.on(this.group, "mouseleave", () => {
       var s, r;
       clearTimeout(e), this.gantt.options.popup_on === "hover" && ((r = (s = this.gantt.popup) == null ? void 0 : s.hide) == null || r.call(s)), this.gantt.$container.querySelector(`.highlight-${t}`).classList.add("hide");
-    }), u.on(this.group, "click", () => {
+    }), p.on(this.group, "click", () => {
       this.gantt.trigger_event("click", [this.task]);
-    }), u.on(this.group, "dblclick", (s) => {
+    }), p.on(this.group, "dblclick", (s) => {
       this.action_completed || (this.group.classList.remove("active"), this.gantt.popup && this.gantt.popup.parent.classList.remove("hide"), this.gantt.trigger_event("double_click", [this.task]));
     });
     let i = !1;
-    u.on(this.group, "touchstart", (s) => {
+    p.on(this.group, "touchstart", (s) => {
       if (!i)
         return i = !0, setTimeout(function() {
           i = !1;
@@ -552,8 +547,8 @@ class F {
   }
   update_label_position_on_horizontal_scroll({ x: t, sx: e }) {
     const i = this.gantt.$container.querySelector(".gantt-container"), s = this.group.querySelector(".bar-label"), r = this.group.querySelector(".bar-img") || "", a = this.bar_group.querySelector(".img_mask") || "";
-    let o = this.$bar.getX() + this.$bar.getWidth(), h = s.getX() + t, _ = r && r.getX() + t || 0, l = r && r.getBBox().width + 7 || 7, g = h + s.getBBox().width + 7, c = e + i.clientWidth / 2;
-    s.classList.contains("big") || (g < o && t > 0 && g < c || h - l > this.$bar.getX() && t < 0 && g > c) && (s.setAttribute("x", h), r && (r.setAttribute("x", _), a.setAttribute("x", _)));
+    let o = this.$bar.getX() + this.$bar.getWidth(), h = s.getX() + t, l = r && r.getX() + t || 0, _ = r && r.getBBox().width + 7 || 7, g = h + s.getBBox().width + 7, c = e + i.clientWidth / 2;
+    s.classList.contains("big") || (g < o && t > 0 && g < c || h - _ > this.$bar.getX() && t < 0 && g > c) && (s.setAttribute("x", h), r && (r.setAttribute("x", l), a.setAttribute("x", l)));
   }
   date_changed() {
     let t = !1;
@@ -663,7 +658,7 @@ class F {
       t.update();
   }
 }
-class I {
+class O {
   constructor(t, e, i) {
     this.parent = t, this.popup_func = e, this.gantt = i, this.make();
   }
@@ -692,7 +687,7 @@ class I {
           type: "button",
           append_to: this.actions
         });
-        typeof a == "function" && (a = a(i)), h.innerHTML = a, h.onclick = (_) => o(i, this.gantt, _);
+        typeof a == "function" && (a = a(i)), h.innerHTML = a, h.onclick = (l) => o(i, this.gantt, l);
       }
     });
     r !== !1 && (r && (this.parent.innerHTML = r), this.actions.innerHTML === "" ? this.actions.remove() : this.parent.appendChild(this.actions), this.parent.style.left = t + 10 + "px", this.parent.style.top = e - 10 + "px", this.parent.classList.remove("hide"));
@@ -705,7 +700,7 @@ function A(n) {
   const t = n.getFullYear();
   return t - t % 10 + "";
 }
-function O(n, t, e) {
+function I(n, t, e) {
   let i = d.add(n, 6, "day"), s = i.getMonth() !== n.getMonth() ? "D MMM" : "D", r = !t || n.getMonth() !== t.getMonth() ? "D MMM" : "D";
   return `${d.format(n, r, e)} - ${d.format(i, s, e)}`;
 }
@@ -752,7 +747,7 @@ const b = [
     step: "7d",
     date_format: "YYYY-MM-DD",
     column_width: 140,
-    lower_text: O,
+    lower_text: I,
     upper_text: (n, t, e) => !t || n.getMonth() !== t.getMonth() ? d.format(n, "MMMM YYYY", e) : "",
     thick_line: (n) => n.getDate() >= 1 && n.getDate() <= 7,
     upper_text_frequency: 4
@@ -896,8 +891,8 @@ class B {
           `task "${e.id}" doesn't have a start date`
         ), !1;
       if (e._start = d.parse(e.start), e.end === void 0 && e.duration !== void 0 && (e.end = e._start, e.duration.split(" ").forEach((o) => {
-        let { duration: h, scale: _ } = d.parse_duration(o);
-        e.end = d.add(e.end, h, _);
+        let { duration: h, scale: l } = d.parse_duration(o);
+        e.end = d.add(e.end, h, l);
       })), !e.end)
         return console.error(`task "${e.id}" doesn't have an end date`), !1;
       if (e._end = d.parse(e.end), d.diff(e._end, e._start, "year") < 0)
@@ -1029,7 +1024,7 @@ class B {
       height: e,
       class: "grid-background",
       append_to: this.$svg
-    }), u.attr(this.$svg, {
+    }), p.attr(this.$svg, {
       height: e,
       width: "100%"
     }), this.grid_height = e, this.options.container_height === "auto" && (this.$container.style.height = e + "px");
@@ -1101,10 +1096,10 @@ class B {
         }), r += o;
     if (this.options.lines !== "horizontal")
       for (let h of this.dates) {
-        let _ = "tick";
-        this.config.view_mode.thick_line && this.config.view_mode.thick_line(h) && (_ += " thick"), f("path", {
+        let l = "tick";
+        this.config.view_mode.thick_line && this.config.view_mode.thick_line(h) && (l += " thick"), f("path", {
           d: `M ${t} ${e} v ${i}`,
-          class: _,
+          class: l,
           append_to: this.layers.grid
         }), this.view_is("month") ? t += d.get_days_in_month(h) * this.config.column_width / 30 : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
       }
@@ -1140,11 +1135,11 @@ class B {
               this.config.unit
             ) / this.config.step * this.config.column_width, o = this.grid_height - this.config.header_height, h = d.format(r, "YYYY-MM-DD", this.options.language).replace(" ", "_");
             if (t[r]) {
-              let _ = this.create_el({
+              let l = this.create_el({
                 classes: "holiday-label label_" + h,
                 append_to: this.$extras
               });
-              _.textContent = t[r];
+              l.textContent = t[r];
             }
             f("rect", {
               x: Math.round(a),
@@ -1224,9 +1219,9 @@ class B {
     );
   }
   create_el({ left: t, top: e, width: i, height: s, id: r, classes: a, append_to: o, type: h }) {
-    let _ = document.createElement(h || "div");
-    for (let l of a.split(" ")) _.classList.add(l);
-    return _.style.top = e + "px", _.style.left = t + "px", r && (_.id = r), i && (_.style.width = i + "px"), s && (_.style.height = s + "px"), o && o.appendChild(_), _;
+    let l = document.createElement(h || "div");
+    for (let _ of a.split(" ")) l.classList.add(_);
+    return l.style.top = e + "px", l.style.left = t + "px", r && (l.id = r), i && (l.style.width = i + "px"), s && (l.style.height = s + "px"), o && o.appendChild(l), l;
   }
   make_dates() {
     this.get_dates_to_draw().forEach((t, e) => {
@@ -1404,7 +1399,7 @@ class B {
     ];
   }
   bind_grid_click() {
-    u.on(
+    p.on(
       this.$container,
       "click",
       ".grid-row, .grid-header, .ignored-bar, .holiday-highlight",
@@ -1434,62 +1429,62 @@ class B {
     if (!this.bars.length) return [0, 0, 0];
     let { x: t, width: e } = this.bars[0].group.getBBox(), i = t, s = t, r = t + e;
     return Array.prototype.forEach.call(this.bars, function({ group: a }, o) {
-      let { x: h, width: _ } = a.getBBox();
-      h < i && (i = h), h > s && (s = h), h + _ > r && (r = h + _);
+      let { x: h, width: l } = a.getBBox();
+      h < i && (i = h), h > s && (s = h), h + l > r && (r = h + l);
     }), [i, s, r];
   }
   bind_bar_events() {
     let t = !1, e = 0, i = 0, s = !1, r = !1, a = null, o = [];
     this.bar_being_dragged = null;
     const h = () => t || s || r;
-    this.$svg.onclick = (l) => {
-      l.target.classList.contains("grid-row") && this.unselect_all();
+    this.$svg.onclick = (_) => {
+      _.target.classList.contains("grid-row") && this.unselect_all();
     };
-    let _ = 0;
-    if (u.on(this.$svg, "mousemove", ".bar-wrapper, .handle", (l) => {
-      this.bar_being_dragged === !1 && Math.abs((l.offsetX || l.layerX) - _) > 10 && (this.bar_being_dragged = !0);
-    }), u.on(this.$svg, "mousedown", ".bar-wrapper, .handle", (l, g) => {
-      const c = u.closest(".bar-wrapper", g);
-      g.classList.contains("left") ? (s = !0, g.classList.add("visible")) : g.classList.contains("right") ? (r = !0, g.classList.add("visible")) : g.classList.contains("bar-wrapper") && (t = !0), this.popup && this.popup.hide(), e = l.offsetX || l.layerX, l.offsetY || l.layerY, a = c.getAttribute("data-id");
-      let p;
-      this.options.move_dependencies ? p = [
+    let l = 0;
+    if (p.on(this.$svg, "mousemove", ".bar-wrapper, .handle", (_) => {
+      this.bar_being_dragged === !1 && Math.abs((_.offsetX || _.layerX) - l) > 10 && (this.bar_being_dragged = !0);
+    }), p.on(this.$svg, "mousedown", ".bar-wrapper, .handle", (_, g) => {
+      const c = p.closest(".bar-wrapper", g);
+      g.classList.contains("left") ? (s = !0, g.classList.add("visible")) : g.classList.contains("right") ? (r = !0, g.classList.add("visible")) : g.classList.contains("bar-wrapper") && (t = !0), this.popup && this.popup.hide(), e = _.offsetX || _.layerX, _.offsetY || _.layerY, a = c.getAttribute("data-id");
+      let u;
+      this.options.move_dependencies ? u = [
         a,
         ...this.get_all_dependent_tasks(a)
-      ] : p = [a], o = p.map((y) => this.get_bar(y)), this.bar_being_dragged = !1, _ = e, o.forEach((y) => {
+      ] : u = [a], o = u.map((y) => this.get_bar(y)), this.bar_being_dragged = !1, l = e, o.forEach((y) => {
         const m = y.$bar;
         m.ox = m.getX(), m.oy = m.getY(), m.owidth = m.getWidth(), m.finaldx = 0;
       });
     }), this.options.infinite_padding) {
-      let l = !1;
-      u.on(this.$container, "mousewheel", (g) => {
+      let _ = !1;
+      p.on(this.$container, "mousewheel", (g) => {
         let c = this.$container.scrollWidth / 2;
-        if (!l && g.currentTarget.scrollLeft <= c) {
-          let p = g.currentTarget.scrollLeft;
-          l = !0, this.gantt_start = d.add(
+        if (!_ && g.currentTarget.scrollLeft <= c) {
+          let u = g.currentTarget.scrollLeft;
+          _ = !0, this.gantt_start = d.add(
             this.gantt_start,
             -this.config.extend_by_units,
             this.config.unit
-          ), this.setup_date_values(), this.render(), g.currentTarget.scrollLeft = p + this.config.column_width * this.config.extend_by_units, setTimeout(() => l = !1, 300);
+          ), this.setup_date_values(), this.render(), g.currentTarget.scrollLeft = u + this.config.column_width * this.config.extend_by_units, setTimeout(() => _ = !1, 300);
         }
-        if (!l && g.currentTarget.scrollWidth - (g.currentTarget.scrollLeft + g.currentTarget.clientWidth) <= c) {
-          let p = g.currentTarget.scrollLeft;
-          l = !0, this.gantt_end = d.add(
+        if (!_ && g.currentTarget.scrollWidth - (g.currentTarget.scrollLeft + g.currentTarget.clientWidth) <= c) {
+          let u = g.currentTarget.scrollLeft;
+          _ = !0, this.gantt_end = d.add(
             this.gantt_end,
             this.config.extend_by_units,
             this.config.unit
-          ), this.setup_date_values(), this.render(), g.currentTarget.scrollLeft = p, setTimeout(() => l = !1, 300);
+          ), this.setup_date_values(), this.render(), g.currentTarget.scrollLeft = u, setTimeout(() => _ = !1, 300);
         }
       });
     }
-    u.on(this.$container, "scroll", (l) => {
+    p.on(this.$container, "scroll", (_) => {
       let g = [];
       const c = this.bars.map(
         ({ group: w }) => w.getAttribute("data-id")
       );
-      let p;
-      i && (p = l.currentTarget.scrollLeft - i), this.current_date = d.add(
+      let u;
+      i && (u = _.currentTarget.scrollLeft - i), this.current_date = d.add(
         this.gantt_start,
-        l.currentTarget.scrollLeft / this.config.column_width * this.config.step,
+        _.currentTarget.scrollLeft / this.config.column_width * this.config.step,
         this.config.unit
       );
       let y = this.config.view_mode.upper_text(
@@ -1501,7 +1496,7 @@ class B {
       );
       this.current_date = d.add(
         this.gantt_start,
-        (l.currentTarget.scrollLeft + m.clientWidth) / this.config.column_width * this.config.step,
+        (_.currentTarget.scrollLeft + m.clientWidth) / this.config.column_width * this.config.step,
         this.config.unit
       ), y = this.config.view_mode.upper_text(
         this.current_date,
@@ -1509,42 +1504,42 @@ class B {
         this.options.language
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
-      ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = l.currentTarget.scrollLeft;
+      ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
       let [E, H, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
           left: H,
           behavior: "smooth"
         });
-      }) : i + l.currentTarget.offsetWidth < E - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
+      }) : i + _.currentTarget.offsetWidth < E - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
           left: E,
           behavior: "smooth"
         });
-      }) : this.$adjust.classList.add("hide"), p && (g = c.map((w) => this.get_bar(w)), this.options.auto_move_label && g.forEach((w) => {
+      }) : this.$adjust.classList.add("hide"), u && (g = c.map((w) => this.get_bar(w)), this.options.auto_move_label && g.forEach((w) => {
         w.update_label_position_on_horizontal_scroll({
-          x: p,
-          sx: l.currentTarget.scrollLeft
+          x: u,
+          sx: _.currentTarget.scrollLeft
         });
       }));
-    }), u.on(this.$svg, "mousemove", (l) => {
+    }), p.on(this.$svg, "mousemove", (_) => {
       if (!h()) return;
-      const g = (l.offsetX || l.layerX) - e;
+      const g = (_.offsetX || _.layerX) - e;
       o.forEach((c) => {
-        const p = c.$bar;
-        p.finaldx = this.get_snap_position(g, p.ox), this.hide_popup(), s ? a === c.task.id ? c.update_bar_position({
-          x: p.ox + p.finaldx,
-          width: p.owidth - p.finaldx
+        const u = c.$bar;
+        u.finaldx = this.get_snap_position(g, u.ox), this.hide_popup(), s ? a === c.task.id ? c.update_bar_position({
+          x: u.ox + u.finaldx,
+          width: u.owidth - u.finaldx
         }) : c.update_bar_position({
-          x: p.ox + p.finaldx
+          x: u.ox + u.finaldx
         }) : r ? a === c.task.id && c.update_bar_position({
-          width: p.owidth + p.finaldx
-        }) : t && !this.options.readonly && !this.options.readonly_dates && c.update_bar_position({ x: p.ox + p.finaldx });
+          width: u.owidth + u.finaldx
+        }) : t && !this.options.readonly && !this.options.readonly_dates && c.update_bar_position({ x: u.ox + u.finaldx });
       });
     }), document.addEventListener("mouseup", () => {
-      var l, g, c;
-      t = !1, s = !1, r = !1, (c = (g = (l = this.$container.querySelector(".visible")) == null ? void 0 : l.classList) == null ? void 0 : g.remove) == null || c.call(g, "visible");
-    }), u.on(this.$svg, "mouseup", (l) => {
+      var _, g, c;
+      t = !1, s = !1, r = !1, (c = (g = (_ = this.$container.querySelector(".visible")) == null ? void 0 : _.classList) == null ? void 0 : g.remove) == null || c.call(g, "visible");
+    }), p.on(this.$svg, "mouseup", (_) => {
       this.bar_being_dragged = null, o.forEach((g) => {
         g.$bar.finaldx && (g.date_changed(), g.compute_progress(), g.set_action_completed());
       });
@@ -1552,38 +1547,38 @@ class B {
   }
   bind_bar_progress() {
     let t = 0, e = null, i = null, s = null, r = null;
-    u.on(this.$svg, "mousedown", ".handle.progress", (o, h) => {
+    p.on(this.$svg, "mousedown", ".handle.progress", (o, h) => {
       e = !0, t = o.offsetX || o.layerX, y_on_start = o.offsetY || o.layerY;
-      const l = u.closest(".bar-wrapper", h).getAttribute("data-id");
-      i = this.get_bar(l), s = i.$bar_progress, r = i.$bar, s.finaldx = 0, s.owidth = s.getWidth(), s.min_dx = -s.owidth, s.max_dx = r.getWidth() - s.getWidth();
+      const _ = p.closest(".bar-wrapper", h).getAttribute("data-id");
+      i = this.get_bar(_), s = i.$bar_progress, r = i.$bar, s.finaldx = 0, s.owidth = s.getWidth(), s.min_dx = -s.owidth, s.max_dx = r.getWidth() - s.getWidth();
     });
     const a = this.config.ignored_positions.map((o) => [
       o,
       o + this.config.column_width
     ]);
-    u.on(this.$svg, "mousemove", (o) => {
+    p.on(this.$svg, "mousemove", (o) => {
       if (!e) return;
       let h = o.offsetX || o.layerX;
       if (h > t) {
         let g = a.find(
-          ([c, p]) => h >= c && h < p
+          ([c, u]) => h >= c && h < u
         );
         for (; g; )
           h = g[1], g = a.find(
-            ([c, p]) => h >= c && h < p
+            ([c, u]) => h >= c && h < u
           );
       } else {
         let g = a.find(
-          ([c, p]) => h > c && h <= p
+          ([c, u]) => h > c && h <= u
         );
         for (; g; )
           h = g[0], g = a.find(
-            ([c, p]) => h > c && h <= p
+            ([c, u]) => h > c && h <= u
           );
       }
-      let l = h - t;
-      l > s.max_dx && (l = s.max_dx), l < s.min_dx && (l = s.min_dx), s.setAttribute("width", s.owidth + l), u.attr(i.$handle_progress, "cx", s.getEndX()), s.finaldx = l;
-    }), u.on(this.$svg, "mouseup", () => {
+      let _ = h - t;
+      _ > s.max_dx && (_ = s.max_dx), _ < s.min_dx && (_ = s.min_dx), s.setAttribute("width", s.owidth + _), p.attr(i.$handle_progress, "cx", s.getEndX()), s.finaldx = _;
+    }), p.on(this.$svg, "mouseup", () => {
       e = !1, s && s.finaldx && (s.finaldx = 0, i.progress_changed(), i.set_action_completed(), i = null, s = null, r = null);
     });
   }
@@ -1599,15 +1594,15 @@ class B {
     let i = 1;
     const s = this.options.snap_at || this.config.view_mode.snap_at || "1d";
     if (s !== "unit") {
-      const { duration: l, scale: g } = d.parse_duration(s);
-      i = d.convert_scales(this.config.view_mode.step, g) / l;
+      const { duration: _, scale: g } = d.parse_duration(s);
+      i = d.convert_scales(this.config.view_mode.step, g) / _;
     }
     const r = t % (this.config.column_width / i);
     let a = t - r + (r < this.config.column_width / i * 2 ? 0 : this.config.column_width / i), o = e + a;
     const h = a > 0 ? 1 : -1;
-    let _ = this.get_ignored_region(o, h);
-    for (; _.length; )
-      o += this.config.column_width * h, _ = this.get_ignored_region(o, h), _.length || (o -= this.config.column_width * h);
+    let l = this.get_ignored_region(o, h);
+    for (; l.length; )
+      o += this.config.column_width * h, l = this.get_ignored_region(o, h), l.length || (o -= this.config.column_width * h);
     return o - e;
   }
   get_ignored_region(t, e = 1) {
@@ -1628,7 +1623,7 @@ class B {
     return this.bars.find((e) => e.task.id === t);
   }
   show_popup(t) {
-    this.options.popup !== !1 && (this.popup || (this.popup = new I(
+    this.options.popup !== !1 && (this.popup || (this.popup = new O(
       this.$popup_wrapper,
       this.options.popup,
       this
@@ -1657,8 +1652,8 @@ class B {
    * @memberof Gantt
    */
   clear() {
-    var t, e, i, s, r, a, o, h, _, l;
-    this.$svg.innerHTML = "", (e = (t = this.$header) == null ? void 0 : t.remove) == null || e.call(t), (s = (i = this.$side_header) == null ? void 0 : i.remove) == null || s.call(i), (a = (r = this.$current_highlight) == null ? void 0 : r.remove) == null || a.call(r), (h = (o = this.$extras) == null ? void 0 : o.remove) == null || h.call(o), (l = (_ = this.popup) == null ? void 0 : _.hide) == null || l.call(_);
+    var t, e, i, s, r, a, o, h, l, _;
+    this.$svg.innerHTML = "", (e = (t = this.$header) == null ? void 0 : t.remove) == null || e.call(t), (s = (i = this.$side_header) == null ? void 0 : i.remove) == null || s.call(i), (a = (r = this.$current_highlight) == null ? void 0 : r.remove) == null || a.call(r), (h = (o = this.$extras) == null ? void 0 : o.remove) == null || h.call(o), (_ = (l = this.popup) == null ? void 0 : l.hide) == null || _.call(l);
   }
 }
 B.VIEW_MODE = {
