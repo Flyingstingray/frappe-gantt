@@ -157,7 +157,7 @@ export default {
         let yearDiff = date_a.getFullYear() - date_b.getFullYear();
         let monthDiff = date_a.getMonth() - date_b.getMonth();
         // calculate extra
-        monthDiff += (days % 30) / 30;
+        //monthDiff += (days % 30) / 30;
 
         /* If monthDiff is negative, date_b is in an earlier month than
         date_a and thus subtracted from the year difference in months */
@@ -167,6 +167,20 @@ export default {
         //if (date_a.getDate() < date_b.getDate()) {
         //    months--;
         //}
+
+        if (date_a.getDate() < date_b.getDate()) {
+            months -= 1;
+
+            let prevMonthDays = new Date(date_a.getFullYear(), date_a.getMonth(), 0).getDate();
+            let dayDiff = (prevMonthDays - date_b.getDate()) + date_a.getDate();
+            months += dayDiff / prevMonthDays;
+        
+        } else {
+            let dayDiff = date_a.getDate() - date_b.getDate();
+            let daysInMonth = new Date(date_a.getFullYear(), date_a.getMonth() + 1, 0).getDate();
+            months += dayDiff / daysInMonth;
+            
+        }
 
         // Calculate years based on actual months
         years = months / 12;
