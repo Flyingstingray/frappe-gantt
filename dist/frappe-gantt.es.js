@@ -334,7 +334,7 @@ class F {
     });
   }
   prepare_values() {
-    this.invalid = this.task.invalid, this.height = this.gantt.options.bar_height, this.image_size = this.height - 5, this.task._start = new Date(this.task.start), this.task._end = new Date(this.task.end), this.compute_x(), this.compute_y(), this.compute_duration(), this.corner_radius = this.gantt.options.bar_corner_radius, this.width = this.gantt.config.column_width * this.duration, (!this.task.progress || this.task.progress < 0) && (this.task.progress = 0), this.task.progress > 100 && (this.task.progress = 100);
+    this.invalid = this.task.invalid, this.height = this.gantt.options.bar_height, this.image_size = this.height - 5, this.task._start = new Date(this.task.start), this.task._end = new Date(this.task.end), this.compute_x(), this.compute_y(), this.compute_duration(), this.corner_radius = this.gantt.options.bar_corner_radius, this.width = this.gantt.config.column_width * this.duration, (!this.task.progress || this.task.progress < 0) && (this.task.progress = 0), this.task.progress > 100 && (this.task.progress = 100), this.x = Math.round(this.x), this.width = Math.round(this.width);
   }
   prepare_helpers() {
     SVGElement.prototype.getX = function() {
@@ -1107,7 +1107,7 @@ class B {
           d: `M ${t} ${e} v ${i}`,
           class: l,
           append_to: this.layers.grid
-        }), this.view_is("month") ? t += cumulativeMonthWidth(h, this.gantt) : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
+        }), this.view_is("month") ? t += months * this.config.column_width : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
       }
   }
   highlight_holidays() {

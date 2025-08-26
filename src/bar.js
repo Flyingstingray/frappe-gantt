@@ -61,6 +61,9 @@ export default class Bar {
         if (!this.task.progress || this.task.progress < 0)
             this.task.progress = 0;
         if (this.task.progress > 100) this.task.progress = 100;
+
+        this.x = Math.round(this.x);
+        this.width = Math.round(this.width);
     }
 
     prepare_helpers() {
@@ -610,6 +613,7 @@ export default class Bar {
         //);
 
         this.x = x;
+        //this.x = Math.round(this.x);
     }
 
     compute_y() {
