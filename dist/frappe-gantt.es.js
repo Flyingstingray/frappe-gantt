@@ -1107,7 +1107,7 @@ class B {
           d: `M ${t} ${e} v ${i}`,
           class: l,
           append_to: this.layers.grid
-        }), this.view_is("month") ? t = cumulativeMonthWidth(h, this.gantt) : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
+        }), this.view_is("month") ? t = this.gantt_start_px + cumulative_month_width(h, this.gantt) : this.view_is("year") ? t += d.get_days_in_year(h) * this.config.column_width / 365 : t += this.config.column_width;
       }
   }
   highlight_holidays() {

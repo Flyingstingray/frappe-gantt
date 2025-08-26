@@ -558,8 +558,8 @@ export default class Gantt {
             });
 
             if (this.view_is('month')) {
-                tick_x = cumulativeMonthWidth(date, this.gantt);
-                //tick_x = this.gantt_start_px + cumulative_month_width(date);
+                //tick_x = cumulativeMonthWidth(date, this.gantt);
+                tick_x = this.gantt_start_px + cumulative_month_width(date, this.gantt);
                 //tick_x += Math.round((date_utils.get_days_in_month(date) * this.config.column_width) / 30);
                 //tick_x +=
                 //    (date_utils.get_days_in_month(date) *
