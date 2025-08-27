@@ -1554,7 +1554,7 @@ class B {
   bind_bar_progress() {
     let t = 0, e = null, i = null, s = null, r = null;
     u.on(this.$svg, "mousedown", ".handle.progress", (o, h) => {
-      e = !0, t = o.offsetX || o.layerX, y_on_start = o.offsetY || o.layerY;
+      e = !0, t = o.offsetX || o.layerX, o.offsetY || o.layerY;
       const _ = u.closest(".bar-wrapper", h).getAttribute("data-id");
       i = this.get_bar(_), s = i.$bar_progress, r = i.$bar, s.finaldx = 0, s.owidth = s.getWidth(), s.min_dx = -s.owidth, s.max_dx = r.getWidth() - s.getWidth();
     });
