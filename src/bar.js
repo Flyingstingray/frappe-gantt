@@ -62,8 +62,8 @@ export default class Bar {
             this.task.progress = 0;
         if (this.task.progress > 100) this.task.progress = 100;
 
-        this.x = Math.round(this.x);
-        this.width = Math.round(this.width);
+        //this.x = Math.round(this.x);
+        //this.width = Math.round(this.width);
     }
 
     prepare_helpers() {
