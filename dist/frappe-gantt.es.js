@@ -311,7 +311,7 @@ class C {
     this.calculate_path(), this.element.setAttribute("d", this.path);
   }
 }
-class F {
+class I {
   constructor(t, e) {
     this.set_defaults(t, e), this.prepare_wrappers(), this.prepare_helpers(), this.refresh();
   }
@@ -664,7 +664,7 @@ class F {
       t.update();
   }
 }
-class I {
+class F {
   constructor(t, e, i) {
     this.parent = t, this.popup_func = e, this.gantt = i, this.make();
   }
@@ -959,7 +959,7 @@ class N {
       (!e || s._start < e) && (e = s._start), (!i || s._end > i) && (i = s._end);
     if (e = d.start_of(e, this.config.unit), i = d.start_of(i, this.config.unit), !t)
       if (this.options.infinite_padding)
-        console.log(this.config.view_mode), console.log(this.config.unit), this.config.view_mode == "month" ? (this.gantt_start = d.add(
+        console.log("VIEW_MODE", this.config.view_mode), console.log("UNIT", this.config.unit), this.config.view_mode == "month" ? (this.gantt_start = d.add(
           e,
           -this.config.extend_by_units,
           this.config.unit
@@ -1308,7 +1308,7 @@ class N {
   }
   make_bars() {
     this.bars = this.tasks.map((t) => {
-      const e = new F(this, t);
+      const e = new I(this, t);
       return this.layers.bar.appendChild(e.group), e;
     });
   }
@@ -1645,7 +1645,7 @@ class N {
     return this.bars.find((e) => e.task.id === t);
   }
   show_popup(t) {
-    this.options.popup !== !1 && (this.popup || (this.popup = new I(
+    this.options.popup !== !1 && (this.popup || (this.popup = new F(
       this.$popup_wrapper,
       this.options.popup,
       this

@@ -311,9 +311,9 @@ export default class Gantt {
 
                 console.log("no infinite padding", gantt_start, gantt_end)
             } else {
-                console.log(this.config.view_mode);
-                console.log(this.config.unit);
-                
+                console.log("VIEW_MODE", this.config.view_mode);
+                console.log("UNIT", this.config.unit);
+
                 if (this.config.view_mode == "month") {
                     this.gantt_start = date_utils.add(
                         gantt_start,
