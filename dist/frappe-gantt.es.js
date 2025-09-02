@@ -1412,7 +1412,7 @@ class N {
     let r = d.format(
       e,
       this.config.date_format,
-      this.option.language
+      this.options.language
     );
     return this.config.date_format === "YYYY-MM" && (r += "-01"), [
       new Date(r),

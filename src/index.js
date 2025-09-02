@@ -1034,7 +1034,7 @@ export default class Gantt {
         let formatted = date_utils.format(
             current,
             this.config.date_format,
-            this.option.language
+            this.options.language
         );
 
         if (this.config.date_format === "YYYY-MM") {
