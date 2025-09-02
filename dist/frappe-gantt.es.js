@@ -959,7 +959,7 @@ class N {
       (!e || s._start < e) && (e = s._start), (!i || s._end > i) && (i = s._end);
     if (e = d.start_of(e, this.config.unit), i = d.start_of(i, this.config.unit), !t)
       if (this.options.infinite_padding)
-        this.config.view_mode == "month" ? (this.gantt_start = d.add(
+        console.log(this.config.view_mode), console.log(this.config.unit), this.config.view_mode == "month" ? (this.gantt_start = d.add(
           e,
           -this.config.extend_by_units,
           this.config.unit
