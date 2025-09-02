@@ -623,7 +623,7 @@ class F {
       e++, !this.gantt.config.ignored_dates.find(
         (s) => s.getTime() === i.getTime()
       ) && (!this.gantt.config.ignored_function || !this.gantt.config.ignored_function(i)) && t++;
-    this.task.actual_duration = t, this.task.ignored_duration = e - t, this.duration = d.convert_scales(
+    this.task.actual_duration = t, console.log(this.task.actual_duration), this.task.ignored_duration = e - t, console.log(this.task.ignored_duration), this.duration = d.convert_scales(
       e + "d",
       this.gantt.config.unit
     ) / this.gantt.config.step, this.actual_duration_raw = d.convert_scales(
