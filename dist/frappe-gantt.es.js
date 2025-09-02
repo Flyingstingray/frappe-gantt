@@ -959,7 +959,15 @@ class N {
       (!e || s._start < e) && (e = s._start), (!i || s._end > i) && (i = s._end);
     if (e = d.start_of(e, this.config.unit), i = d.start_of(i, this.config.unit), !t)
       if (this.options.infinite_padding)
-        this.gantt_start = d.add(
+        this.config.view_mode == "month" ? (this.gantt_start = d.add(
+          e,
+          -this.config.extend_by_units,
+          this.config.unit
+        ), this.gantt_end = d.add(
+          i,
+          this.config.extend_by_units,
+          this.config.unit
+        )) : (this.gantt_start = d.add(
           e,
           -this.config.extend_by_units * 3,
           this.config.unit
@@ -967,7 +975,7 @@ class N {
           i,
           this.config.extend_by_units * 3,
           this.config.unit
-        ), console.log("yes infinite padding", e, i);
+        )), console.log("yes infinite padding", e, i);
       else {
         typeof this.config.view_mode.padding == "string" && (this.config.view_mode.padding = [
           this.config.view_mode.padding,

@@ -311,16 +311,30 @@ export default class Gantt {
 
                 console.log("no infinite padding", gantt_start, gantt_end)
             } else {
-                this.gantt_start = date_utils.add(
-                    gantt_start,
-                    -this.config.extend_by_units * 3,
-                    this.config.unit,
-                );
-                this.gantt_end = date_utils.add(
-                    gantt_end,
-                    this.config.extend_by_units * 3,
-                    this.config.unit,
-                );
+                if (this.config.view_mode == "month") {
+                    this.gantt_start = date_utils.add(
+                        gantt_start,
+                        -this.config.extend_by_units,
+                        this.config.unit,
+                    );
+                    this.gantt_end = date_utils.add(
+                        gantt_end,
+                        this.config.extend_by_units,
+                        this.config.unit,
+                    );
+                
+                } else {
+                    this.gantt_start = date_utils.add(
+                        gantt_start,
+                        -this.config.extend_by_units * 3,
+                        this.config.unit,
+                    );
+                    this.gantt_end = date_utils.add(
+                        gantt_end,
+                        this.config.extend_by_units * 3,
+                        this.config.unit,
+                    );
+                }
                 console.log("yes infinite padding", gantt_start, gantt_end)
             }
         }
