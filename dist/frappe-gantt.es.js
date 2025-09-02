@@ -965,7 +965,7 @@ class N {
           this.config.unit
         ), this.gantt_end = d.add(
           i,
-          this.config.extend_by_units * 2,
+          this.config.extend_by_units * 1.5,
           this.config.unit
         )) : (this.gantt_start = d.add(
           e,
@@ -1185,7 +1185,7 @@ class N {
    */
   highlight_current() {
     const t = this.get_closest_date();
-    if (!t) return;
+    if (console.log(t), !t) return;
     const [e, i] = t;
     i.classList.add("current-date-highlight");
     const r = d.diff(

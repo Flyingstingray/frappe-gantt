@@ -320,7 +320,7 @@ export default class Gantt {
                     );
                     this.gantt_end = date_utils.add(
                         gantt_end,
-                        this.config.extend_by_units * 2,
+                        this.config.extend_by_units * 1.5,
                         this.config.unit,
                     );
                 
@@ -689,6 +689,7 @@ export default class Gantt {
      */
     highlight_current() {
         const res = this.get_closest_date();
+        console.log(res);
         if (!res) return;
 
         const [_, el] = res;
