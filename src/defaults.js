@@ -157,11 +157,11 @@ const DEFAULT_OPTIONS = {
             'MMM D',
             ctx.chart.options.language,
         );
-        
+
         //${businessDuration(ctx.task._start, ctx.task._end)}
         //(${ctx.task.actual_duration} days${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' excluded' : ''})
         ctx.set_details(
-            `${start_date} - ${end_date} (${businessDuration(ctx.task._start, ctx.task._end)} days${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' excluded' : ''})`,
+            `${start_date} - ${end_date} (${businessDuration(ctx.task._start, ctx.task._end)} business days${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' excluded' : ''})`,
         );
     },
     popup_on: 'click',

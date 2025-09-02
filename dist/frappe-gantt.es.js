@@ -817,7 +817,7 @@ const b = [
       n.chart.options.language
     );
     n.set_details(
-      `${t} - ${e} (${z(n.task._start, n.task._end)} days${n.task.ignored_duration ? " + " + n.task.ignored_duration + " excluded" : ""})`
+      `${t} - ${e} (${z(n.task._start, n.task._end)} business days${n.task.ignored_duration ? " + " + n.task.ignored_duration + " excluded" : ""})`
     );
   },
   popup_on: "click",
