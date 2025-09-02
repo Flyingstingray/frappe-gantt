@@ -12,6 +12,20 @@ function formatWeek(d, ld, lang) {
     return `${date_utils.format(d, beginFormat, lang)} - ${date_utils.format(endOfWeek, endFormat, lang)}`;
 }
 
+function businessDuration(start, end) {
+    let count = 0;
+    let cur = new Date(start);
+
+    while (cur <= end) {
+        const day = cur.getDay();
+        if (day !== 0 && day !== 6) {
+        count++;
+        }
+        cur.setDate(cur.getDate() + 1);
+    }
+    return count;
+}
+
 const DEFAULT_VIEW_MODES = [
     {
         name: 'Hour',
@@ -142,7 +156,7 @@ const DEFAULT_OPTIONS = {
         );
 
         ctx.set_details(
-            `${start_date} - ${end_date} (${ctx.task.actual_duration} days${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' excluded' : ''})`,
+            `${start_date} - ${end_date} (${ctx.task.actual_duration} days${ctx.task.ignored_duration ? ' + ' + ctx.task.ignored_duration + ' excluded' : ''}) ${businessDuration(start_date, end_date)}`,
         );
     },
     popup_on: 'click',

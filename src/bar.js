@@ -643,9 +643,7 @@ export default class Bar {
             }
         }
         this.task.actual_duration = actual_duration_in_days;
-        console.log(this.task.actual_duration)
         this.task.ignored_duration = duration_in_days - actual_duration_in_days;
-        console.log(this.task.ignored_duration)
 
         this.duration =
             date_utils.convert_scales(

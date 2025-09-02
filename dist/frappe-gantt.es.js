@@ -623,7 +623,7 @@ class F {
       e++, !this.gantt.config.ignored_dates.find(
         (s) => s.getTime() === i.getTime()
       ) && (!this.gantt.config.ignored_function || !this.gantt.config.ignored_function(i)) && t++;
-    this.task.actual_duration = t, console.log(this.task.actual_duration), this.task.ignored_duration = e - t, console.log(this.task.ignored_duration), this.duration = d.convert_scales(
+    this.task.actual_duration = t, this.task.ignored_duration = e - t, this.duration = d.convert_scales(
       e + "d",
       this.gantt.config.unit
     ) / this.gantt.config.step, this.actual_duration_raw = d.convert_scales(
@@ -710,6 +710,14 @@ function O(n, t, e) {
   let i = d.add(n, 6, "day"), s = i.getMonth() !== n.getMonth() ? "D MMM" : "D", r = !t || n.getMonth() !== t.getMonth() ? "D MMM" : "D";
   return `${d.format(n, r, e)} - ${d.format(i, s, e)}`;
 }
+function z(n, t) {
+  let e = 0, i = new Date(n);
+  for (; i <= t; ) {
+    const s = i.getDay();
+    s !== 0 && s !== 6 && e++, i.setDate(i.getDate() + 1);
+  }
+  return e;
+}
 const b = [
   {
     name: "Hour",
@@ -779,7 +787,7 @@ const b = [
     lower_text: "YYYY",
     snap_at: "30d"
   }
-], z = {
+], B = {
   arrow_curve: 5,
   auto_move_label: !1,
   bar_corner_radius: 3,
@@ -809,7 +817,7 @@ const b = [
       n.chart.options.language
     );
     n.set_details(
-      `${t} - ${e} (${n.task.actual_duration} days${n.task.ignored_duration ? " + " + n.task.ignored_duration + " excluded" : ""})`
+      `${t} - ${e} (${n.task.actual_duration} days${n.task.ignored_duration ? " + " + n.task.ignored_duration + " excluded" : ""}) ${z(t, e)}`
     );
   },
   popup_on: "click",
@@ -823,7 +831,7 @@ const b = [
   view_mode_select: !1,
   view_modes: b
 };
-class B {
+class N {
   constructor(t, e, i) {
     this.setup_wrapper(t), this.setup_options(i), this.setup_tasks(e), this.change_view_mode(), this.bind_events();
   }
@@ -857,7 +865,7 @@ class B {
     });
   }
   setup_options(t) {
-    this.original_options = t, this.options = { ...z, ...t };
+    this.original_options = t, this.options = { ...B, ...t };
     const e = {
       "grid-height": "container_height",
       "bar-height": "bar_height",
@@ -913,7 +921,7 @@ class B {
         let a = [];
         e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o)), e.dependencies = a;
       }
-      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = N(e), e;
+      return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
   }
   setup_dependencies() {
@@ -1662,7 +1670,7 @@ class B {
     this.$svg.innerHTML = "", (e = (t = this.$header) == null ? void 0 : t.remove) == null || e.call(t), (s = (i = this.$side_header) == null ? void 0 : i.remove) == null || s.call(i), (a = (r = this.$current_highlight) == null ? void 0 : r.remove) == null || a.call(r), (h = (o = this.$extras) == null ? void 0 : o.remove) == null || h.call(o), (_ = (l = this.popup) == null ? void 0 : l.hide) == null || _.call(l);
   }
 }
-B.VIEW_MODE = {
+N.VIEW_MODE = {
   HOUR: b[0],
   QUARTER_DAY: b[1],
   HALF_DAY: b[2],
@@ -1671,12 +1679,12 @@ B.VIEW_MODE = {
   MONTH: b[5],
   YEAR: b[6]
 };
-function N(n) {
+function j(n) {
   return n.name + "_" + Math.random().toString(36).slice(2, 12);
 }
 function $(n) {
   return n.replaceAll(" ", "_").replaceAll(":", "_").replaceAll(".", "_");
 }
 export {
-  B as default
+  N as default
 };
