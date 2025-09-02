@@ -15,14 +15,17 @@ function formatWeek(d, ld, lang) {
 function businessDuration(start, end) {
     let count = 0;
     let cur = new Date(start);
+    console.log("CUR", cur);
 
     while (cur <= end) {
         const day = cur.getDay();
+        console.log("DAY", day);
         if (day !== 0 && day !== 6) {
         count++;
         }
         cur.setDate(cur.getDate() + 1);
     }
+    console.log("COUNT", count);
     return count;
 }
 
