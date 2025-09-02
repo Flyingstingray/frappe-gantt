@@ -967,7 +967,7 @@ class N {
           i,
           this.config.extend_by_units * 3,
           this.config.unit
-        );
+        ), console.log("yes infinite padding", e, i);
       else {
         typeof this.config.view_mode.padding == "string" && (this.config.view_mode.padding = [
           this.config.view_mode.padding,
@@ -984,7 +984,7 @@ class N {
           i,
           r.duration,
           r.scale
-        );
+        ), console.log("no infinite padding", e, i);
       }
     this.config.date_format = this.config.view_mode.date_format || this.options.date_format, this.gantt_start.setHours(0, 0, 0, 0);
   }

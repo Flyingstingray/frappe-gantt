@@ -308,6 +308,8 @@ export default class Gantt {
                     padding_end.duration,
                     padding_end.scale,
                 );
+
+                console.log("no infinite padding", gantt_start, gantt_end)
             } else {
                 this.gantt_start = date_utils.add(
                     gantt_start,
@@ -319,6 +321,7 @@ export default class Gantt {
                     this.config.extend_by_units * 3,
                     this.config.unit,
                 );
+                console.log("yes infinite padding", gantt_start, gantt_end)
             }
         }
         this.config.date_format =
