@@ -215,11 +215,11 @@ function W(n, t, e, i, s = "0.4s", r = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: C("ease-out")
+    keySplines: q("ease-out")
   });
   return n.appendChild(o), n;
 }
-function C(n) {
+function q(n) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -256,7 +256,7 @@ u.attr = (n, t, e) => {
   }
   n.setAttribute(t, e);
 };
-class q {
+class C {
   constructor(t, e, i) {
     this.gantt = t, this.from_task = e, this.to_task = i, this.calculate_path(), this.draw();
   }
@@ -712,11 +712,11 @@ function O(n, t, e) {
 }
 function z(n, t) {
   let e = 0, i = new Date(n);
-  for (console.log("CUR", i); i <= t; ) {
+  for (; i <= t; ) {
     const s = i.getDay();
-    console.log("DAY", s), s !== 0 && s !== 6 && e++, i.setDate(i.getDate() + 1);
+    s !== 0 && s !== 6 && e++, i.setDate(i.getDate() + 1);
   }
-  return console.log("COUNT", e), e;
+  return e;
 }
 const b = [
   {
@@ -1311,7 +1311,7 @@ class N {
       e = t.dependencies.map((i) => {
         const s = this.get_task(i);
         if (!s) return;
-        const r = new q(
+        const r = new C(
           this,
           this.bars[s._index],
           // from_task
