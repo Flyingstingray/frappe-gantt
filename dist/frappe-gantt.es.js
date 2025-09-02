@@ -1409,15 +1409,23 @@ class N {
           )
         )
       ), s++;
-    return [
-      /* @__PURE__ */ new Date(
-        d.format(
-          e,
-          this.config.date_format,
-          this.options.language
-        ) + " "
-      ),
+    let r = d.format(
+      e,
+      this.config.date_format,
+      this.option.language
+    );
+    return this.config.date_format === "YYYY-MM" && (r += "-01"), [
+      new Date(r),
       i
+      /*
+      new Date(
+          date_utils.format(
+              current,
+              this.config.date_format,
+              this.options.language,
+          ) + ' ',
+      ),
+      el,*/
     ];
   }
   bind_grid_click() {

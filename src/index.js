@@ -1030,7 +1030,21 @@ export default class Gantt {
             );
             c++;
         }
+
+        let formatted = date_utils.format(
+            current,
+            this.config.date_format,
+            this.option.language
+        );
+
+        if (this.config.date_format === "YYYY-MM") {
+            formatted += "-01";
+        }
+
         return [
+            new Date(formatted),
+            el,
+            /*
             new Date(
                 date_utils.format(
                     current,
@@ -1038,7 +1052,7 @@ export default class Gantt {
                     this.options.language,
                 ) + ' ',
             ),
-            el,
+            el,*/
         ];
     }
 
