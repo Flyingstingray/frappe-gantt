@@ -961,11 +961,11 @@ class N {
       if (this.options.infinite_padding)
         this.config.unit == "month" ? (this.gantt_start = d.add(
           e,
-          -this.config.extend_by_units,
+          -this.config.extend_by_units / 2,
           this.config.unit
         ), this.gantt_end = d.add(
           i,
-          this.config.extend_by_units,
+          this.config.extend_by_units * 2,
           this.config.unit
         )) : (this.gantt_start = d.add(
           e,

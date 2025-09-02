@@ -315,12 +315,12 @@ export default class Gantt {
                 if (this.config.unit == "month") {
                     this.gantt_start = date_utils.add(
                         gantt_start,
-                        -this.config.extend_by_units,
+                        -this.config.extend_by_units / 2,
                         this.config.unit,
                     );
                     this.gantt_end = date_utils.add(
                         gantt_end,
-                        this.config.extend_by_units,
+                        this.config.extend_by_units * 2,
                         this.config.unit,
                     );
                 
