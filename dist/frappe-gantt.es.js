@@ -975,7 +975,7 @@ class N {
           i,
           this.config.extend_by_units * 3,
           this.config.unit
-        )), console.log("yes infinite padding", e, i);
+        ));
       else {
         typeof this.config.view_mode.padding == "string" && (this.config.view_mode.padding = [
           this.config.view_mode.padding,
@@ -992,7 +992,7 @@ class N {
           i,
           r.duration,
           r.scale
-        ), console.log("no infinite padding", e, i);
+        );
       }
     this.config.date_format = this.config.view_mode.date_format || this.options.date_format, this.gantt_start.setHours(0, 0, 0, 0);
   }
@@ -1185,7 +1185,7 @@ class N {
    */
   highlight_current() {
     const t = this.get_closest_date();
-    if (console.log(t), !t) return;
+    if (!t) return;
     const [e, i] = t;
     i.classList.add("current-date-highlight");
     const r = d.diff(
@@ -1414,19 +1414,7 @@ class N {
       this.config.date_format,
       this.options.language
     );
-    return this.config.date_format === "YYYY-MM" && (r += "-01"), [
-      new Date(r),
-      i
-      /*
-      new Date(
-          date_utils.format(
-              current,
-              this.config.date_format,
-              this.options.language,
-          ) + ' ',
-      ),
-      el,*/
-    ];
+    return this.config.date_format === "YYYY-MM" && (r += "-01"), [new Date(r), i];
   }
   bind_grid_click() {
     u.on(

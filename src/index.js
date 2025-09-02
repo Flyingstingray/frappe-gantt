@@ -309,7 +309,6 @@ export default class Gantt {
                     padding_end.scale,
                 );
 
-                console.log("no infinite padding", gantt_start, gantt_end)
             } else {
 
                 if (this.config.unit == "month") {
@@ -336,7 +335,6 @@ export default class Gantt {
                         this.config.unit,
                     );
                 }
-                console.log("yes infinite padding", gantt_start, gantt_end)
             }
         }
         this.config.date_format =
@@ -689,7 +687,6 @@ export default class Gantt {
      */
     highlight_current() {
         const res = this.get_closest_date();
-        console.log(res);
         if (!res) return;
 
         const [_, el] = res;
@@ -1041,19 +1038,7 @@ export default class Gantt {
             formatted += "-01";
         }
 
-        return [
-            new Date(formatted),
-            el,
-            /*
-            new Date(
-                date_utils.format(
-                    current,
-                    this.config.date_format,
-                    this.options.language,
-                ) + ' ',
-            ),
-            el,*/
-        ];
+        return [ new Date(formatted), el ];
     }
 
     bind_grid_click() {
