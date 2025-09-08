@@ -257,8 +257,8 @@ u.attr = (n, t, e) => {
   n.setAttribute(t, e);
 };
 class C {
-  constructor(t, e, i) {
-    this.gantt = t, this.from_task = e, this.to_task = i, this.calculate_path(), this.draw();
+  constructor(t, e, i, s) {
+    this.gantt = t, this.from_task = e, this.to_task = i, this.type = s, this.calculate_path(), this.draw();
   }
   calculate_path() {
     let t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 2;
@@ -920,6 +920,12 @@ class N {
       if (e._index = i, d.get_date_values(e._end).slice(3).every((a) => a === 0) && (e._end = d.add(e._end, 24, "hour")), typeof e.dependencies == "string" || !e.dependencies) {
         let a = [];
         e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o)), e.dependencies = a;
+      } else if (Array.isArray(e.dependencies)) {
+        let a = [];
+        e.dependencies && (a = e.dependencies.map((o) => ({
+          id: o.id.trim().replaceAll(" ", "_"),
+          type: o.type || "FS"
+        }))), e.dependencies = a;
       }
       return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
@@ -1317,14 +1323,15 @@ class N {
     for (let t of this.tasks) {
       let e = [];
       e = t.dependencies.map((i) => {
-        const s = this.get_task(i);
+        const s = this.get_task(i.id);
         if (!s) return;
         const r = new C(
           this,
           this.bars[s._index],
           // from_task
-          this.bars[t._index]
+          this.bars[i._index],
           // to_task
+          i.type
         );
         return this.layers.arrow.appendChild(r.element), r;
       }).filter(Boolean), this.arrows = this.arrows.concat(e);

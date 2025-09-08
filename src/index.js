@@ -185,7 +185,17 @@ export default class Gantt {
                             .filter((d) => d);
                     }
                     task.dependencies = deps;
-                }
+                
+                } else if (Array.isArray(task.dependencies)) {
+                    let deps = [];
+                    if (task.dependencies) {
+                        deps = task.dependencies.map(dep => ({
+                            id: dep.id.trim().replaceAll(' ', '_'),
+                            type: dep.type || 'FS'
+                        }));
+                    }
+                    task.dependencies = deps;
+                } 
 
                 // uids
                 if (!task.id) {
@@ -884,6 +894,21 @@ export default class Gantt {
         for (let task of this.tasks) {
             let arrows = [];
             arrows = task.dependencies
+                .map((task) => {
+                    const dependency = this.get_task(task.id);
+                    if (!dependency) return;
+                    const arrow = new Arrow(
+                        this,
+                        this.bars[dependency._index], // from_task
+                        this.bars[task._index], // to_task
+                        task.type
+                    );
+                    this.layers.arrow.appendChild(arrow.element);
+                    return arrow;
+                })
+                .filter(Boolean); // filter falsy values
+            /*
+            arrows = task.dependencies
                 .map((task_id) => {
                     const dependency = this.get_task(task_id);
                     if (!dependency) return;
@@ -896,6 +921,7 @@ export default class Gantt {
                     return arrow;
                 })
                 .filter(Boolean); // filter falsy values
+            */
             this.arrows = this.arrows.concat(arrows);
         }
     }
