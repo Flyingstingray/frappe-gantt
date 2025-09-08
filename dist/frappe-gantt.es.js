@@ -922,7 +922,7 @@ class N {
         e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o)), e.dependencies = a;
       } else if (Array.isArray(e.dependencies)) {
         let a = [];
-        e.dependencies && (a = e.dependencies.map((o) => ({
+        e.dependencies && (console.log(e.dependencies), a = e.dependencies.map((o) => ({
           id: o.id.trim().replaceAll(" ", "_"),
           type: o.type || "FS"
         }))), e.dependencies = a;

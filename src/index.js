@@ -189,8 +189,9 @@ export default class Gantt {
                 } else if (Array.isArray(task.dependencies)) {
                     let deps = [];
                     if (task.dependencies) {
+                        console.log(task.dependencies);
                         deps = task.dependencies.map(dep => ({
-                            id: dep.id.trim().replaceAll(' ', '_'),
+                            id: (dep.id).trim().replaceAll(' ', '_'),
                             type: dep.type || 'FS'
                         }));
                     }
