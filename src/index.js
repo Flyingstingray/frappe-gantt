@@ -191,7 +191,7 @@ export default class Gantt {
                     if (task.dependencies) {
                         console.log(task.dependencies);
                         task.dependencies.map(d => {
-                            console.log(d.id);
+                            console.log((d.id).trim().replaceAll(' ', '_'));
                             console.log(d.type);
                         });
                         //deps = task.dependencies.map(d => ({
