@@ -922,10 +922,9 @@ class N {
         e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o)), e.dependencies = a;
       } else if (Array.isArray(e.dependencies)) {
         let a = [];
-        e.dependencies && (console.log(e.dependencies), a = e.dependencies.map((o) => ({
-          id: o.id.trim().replaceAll(" ", "_"),
-          type: o.type || "FS"
-        }))), e.dependencies = a;
+        e.dependencies && (console.log(e.dependencies), e.dependencies.map((o) => {
+          console.log(o.id), console.log(o.type);
+        })), e.dependencies = a;
       }
       return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
