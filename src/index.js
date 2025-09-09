@@ -183,8 +183,6 @@ export default class Gantt {
                             .split(',')
                             .map((d) => d.trim().replaceAll(' ', '_'))
                             .filter((d) => d);
-
-                        console.log(deps);
                     }
                     task.dependencies = deps;
                 
@@ -204,7 +202,6 @@ export default class Gantt {
                         }));
                     }
                     task.dependencies = deps;
-                    console.log(task.dependencies);
                 } 
 
                 // uids
@@ -226,12 +223,10 @@ export default class Gantt {
         this.dependency_map = {};
         for (let t of this.tasks) {
             for (let d of t.dependencies) {
-                console.log(d);
                 this.dependency_map[d.id] = this.dependency_map[d.id] || [];
                 this.dependency_map[d.id].push(t.id);
             }
         }
-        console.log(this.dependency_map);
     }
 
     refresh(tasks) {

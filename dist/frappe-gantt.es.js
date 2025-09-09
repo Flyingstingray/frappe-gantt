@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", S = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", E = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -100,7 +100,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === Y ? t : 0),
       n.getSeconds() + (e === T ? t : 0),
-      n.getMilliseconds() + (e === S ? t : 0)
+      n.getMilliseconds() + (e === E ? t : 0)
     ];
     return new Date(...i);
   },
@@ -112,7 +112,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       [D]: 3,
       [Y]: 2,
       [T]: 1,
-      [S]: 0
+      [E]: 0
     };
     function i(r) {
       const a = e[t];
@@ -215,11 +215,11 @@ function W(n, t, e, i, s = "0.4s", r = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: q("ease-out")
+    keySplines: F("ease-out")
   });
   return n.appendChild(o), n;
 }
-function q(n) {
+function F(n) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -256,12 +256,13 @@ u.attr = (n, t, e) => {
   }
   n.setAttribute(t, e);
 };
-class C {
+class q {
   constructor(t, e, i, s) {
     this.gantt = t, this.from_task = e, this.to_task = i, this.type = s, this.calculate_path(), this.draw();
   }
   calculate_path() {
-    let t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 2;
+    let t;
+    (this.type === "FS" || this.type === "FF") && (t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth()), (this.type === "SS" || this.type === "SF") && (t = this.from_task.$bar.getX());
     const e = () => this.to_task.$bar.getX() < t + this.gantt.options.padding && t > this.from_task.$bar.getX() + this.gantt.options.padding;
     for (; e(); )
       t -= 10;
@@ -311,7 +312,7 @@ class C {
     this.calculate_path(), this.element.setAttribute("d", this.path);
   }
 }
-class F {
+class C {
   constructor(t, e) {
     this.set_defaults(t, e), this.prepare_wrappers(), this.prepare_helpers(), this.refresh();
   }
@@ -919,13 +920,13 @@ class N {
         ), !1;
       if (e._index = i, d.get_date_values(e._end).slice(3).every((a) => a === 0) && (e._end = d.add(e._end, 24, "hour")), typeof e.dependencies == "string" || !e.dependencies) {
         let a = [];
-        e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o), console.log(a)), e.dependencies = a;
+        e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o)), e.dependencies = a;
       } else if (Array.isArray(e.dependencies)) {
         let a = [];
         e.dependencies && (a = e.dependencies.map((o) => ({
           id: o.id.trim().replaceAll(" ", "_"),
           type: o.type || "FS"
-        }))), e.dependencies = a, console.log(e.dependencies);
+        }))), e.dependencies = a;
       }
       return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
@@ -934,8 +935,7 @@ class N {
     this.dependency_map = {};
     for (let t of this.tasks)
       for (let e of t.dependencies)
-        console.log(e), this.dependency_map[e.id] = this.dependency_map[e.id] || [], this.dependency_map[e.id].push(t.id);
-    console.log(this.dependency_map);
+        this.dependency_map[e.id] = this.dependency_map[e.id] || [], this.dependency_map[e.id].push(t.id);
   }
   refresh(t) {
     this.setup_tasks(t), this.change_view_mode();
@@ -1315,7 +1315,7 @@ class N {
   }
   make_bars() {
     this.bars = this.tasks.map((t) => {
-      const e = new F(this, t);
+      const e = new C(this, t);
       return this.layers.bar.appendChild(e.group), e;
     });
   }
@@ -1326,7 +1326,7 @@ class N {
       e = t.dependencies.map((i) => {
         const s = this.get_task(i.id);
         if (!s) return;
-        const r = new C(
+        const r = new q(
           this,
           this.bars[s._index],
           // from_task
@@ -1531,15 +1531,15 @@ class N {
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
-      let [E, H, X] = this.get_start_end_positions();
+      let [S, H, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
           left: H,
           behavior: "smooth"
         });
-      }) : i + _.currentTarget.offsetWidth < E - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
+      }) : i + _.currentTarget.offsetWidth < S - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: E,
+          left: S,
           behavior: "smooth"
         });
       }) : this.$adjust.classList.add("hide"), p && (g = c.map((w) => this.get_bar(w)), this.options.auto_move_label && g.forEach((w) => {

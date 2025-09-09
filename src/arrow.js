@@ -12,8 +12,17 @@ export default class Arrow {
     }
 
     calculate_path() {
-        let start_x =
-            this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 2;
+        let start_x;
+        //start_x =
+        //    this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 2;
+
+        if (this.type === 'FS' || this.type === 'FF') {
+            start_x = this.from_task.$bar.getX() + this.from_task.$bar.getWidth();
+        }
+
+        if (this.type === 'SS' || this.type === 'SF') {
+            start_x = this.from_task.$bar.getX();
+        }
 
         const condition = () =>
             this.to_task.$bar.getX() < start_x + this.gantt.options.padding &&
