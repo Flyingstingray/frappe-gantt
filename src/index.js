@@ -183,6 +183,8 @@ export default class Gantt {
                             .split(',')
                             .map((d) => d.trim().replaceAll(' ', '_'))
                             .filter((d) => d);
+
+                        console.log(deps);
                     }
                     task.dependencies = deps;
                 

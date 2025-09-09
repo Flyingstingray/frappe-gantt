@@ -919,7 +919,7 @@ class N {
         ), !1;
       if (e._index = i, d.get_date_values(e._end).slice(3).every((a) => a === 0) && (e._end = d.add(e._end, 24, "hour")), typeof e.dependencies == "string" || !e.dependencies) {
         let a = [];
-        e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o)), e.dependencies = a;
+        e.dependencies && (a = e.dependencies.split(",").map((o) => o.trim().replaceAll(" ", "_")).filter((o) => o), console.log(a)), e.dependencies = a;
       } else if (Array.isArray(e.dependencies)) {
         let a = [];
         e.dependencies && (a = e.dependencies.map((o) => ({
