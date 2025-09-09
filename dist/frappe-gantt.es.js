@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", E = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", S = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -100,7 +100,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === Y ? t : 0),
       n.getSeconds() + (e === T ? t : 0),
-      n.getMilliseconds() + (e === E ? t : 0)
+      n.getMilliseconds() + (e === S ? t : 0)
     ];
     return new Date(...i);
   },
@@ -112,7 +112,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       [D]: 3,
       [Y]: 2,
       [T]: 1,
-      [E]: 0
+      [S]: 0
     };
     function i(r) {
       const a = e[t];
@@ -215,11 +215,11 @@ function W(n, t, e, i, s = "0.4s", r = "0.1s") {
     calcMode: "spline",
     values: e + ";" + i,
     keyTimes: "0; 1",
-    keySplines: F("ease-out")
+    keySplines: q("ease-out")
   });
   return n.appendChild(o), n;
 }
-function F(n) {
+function q(n) {
   return {
     ease: ".25 .1 .25 1",
     linear: "0 0 1 1",
@@ -256,13 +256,12 @@ u.attr = (n, t, e) => {
   }
   n.setAttribute(t, e);
 };
-class q {
+class C {
   constructor(t, e, i, s) {
     this.gantt = t, this.from_task = e, this.to_task = i, this.type = s, this.calculate_path(), this.draw();
   }
   calculate_path() {
-    let t;
-    (this.type === "FS" || this.type === "FF") && (t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth()), (this.type === "SS" || this.type === "SF") && (t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 6);
+    let t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 2;
     const e = () => this.to_task.$bar.getX() < t + this.gantt.options.padding && t > this.from_task.$bar.getX() + this.gantt.options.padding;
     for (; e(); )
       t -= 10;
@@ -312,7 +311,7 @@ class q {
     this.calculate_path(), this.element.setAttribute("d", this.path);
   }
 }
-class C {
+class F {
   constructor(t, e) {
     this.set_defaults(t, e), this.prepare_wrappers(), this.prepare_helpers(), this.refresh();
   }
@@ -1315,7 +1314,7 @@ class N {
   }
   make_bars() {
     this.bars = this.tasks.map((t) => {
-      const e = new C(this, t);
+      const e = new F(this, t);
       return this.layers.bar.appendChild(e.group), e;
     });
   }
@@ -1326,7 +1325,7 @@ class N {
       e = t.dependencies.map((i) => {
         const s = this.get_task(i.id);
         if (!s) return;
-        const r = new q(
+        const r = new C(
           this,
           this.bars[s._index],
           // from_task
@@ -1531,15 +1530,15 @@ class N {
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
-      let [S, H, X] = this.get_start_end_positions();
+      let [E, H, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
           left: H,
           behavior: "smooth"
         });
-      }) : i + _.currentTarget.offsetWidth < S - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
+      }) : i + _.currentTarget.offsetWidth < E - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: S,
+          left: E,
           behavior: "smooth"
         });
       }) : this.$adjust.classList.add("hide"), p && (g = c.map((w) => this.get_bar(w)), this.options.auto_move_label && g.forEach((w) => {
