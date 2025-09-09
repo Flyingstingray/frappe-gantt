@@ -228,6 +228,7 @@ export default class Gantt {
                 this.dependency_map[d].push(t.id);
             }
         }
+        console.log(this.dependency_map);
     }
 
     refresh(tasks) {
