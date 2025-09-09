@@ -934,7 +934,7 @@ class N {
     this.dependency_map = {};
     for (let t of this.tasks)
       for (let e of t.dependencies)
-        this.dependency_map[e] = this.dependency_map[e] || [], this.dependency_map[e].push(t.id);
+        console.log(e), this.dependency_map[e] = this.dependency_map[e] || [], this.dependency_map[e].push(t.id);
   }
   refresh(t) {
     this.setup_tasks(t), this.change_view_mode();

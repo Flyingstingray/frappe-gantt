@@ -223,6 +223,7 @@ export default class Gantt {
         this.dependency_map = {};
         for (let t of this.tasks) {
             for (let d of t.dependencies) {
+                console.log(d);
                 this.dependency_map[d] = this.dependency_map[d] || [];
                 this.dependency_map[d].push(t.id);
             }
