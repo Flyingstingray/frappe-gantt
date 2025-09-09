@@ -1325,7 +1325,7 @@ class N {
       let e = [];
       e = t.dependencies.map((i) => {
         console.log(i), console.log(i.id);
-        const s = this.get_task(i);
+        const s = this.get_task(i.id);
         if (console.log(s), console.log("FROM TASK", s._index), console.log("TO TASK", t._index), !s) return;
         const r = new C(
           this,
