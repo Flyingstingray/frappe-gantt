@@ -1324,7 +1324,8 @@ class N {
     for (let t of this.tasks) {
       let e = [];
       e = t.dependencies.map((i) => {
-        const s = this.get_task(i.id);
+        console.log(i);
+        const s = this.get_task(task_id);
         if (!s) return;
         const r = new C(
           this,
