@@ -1,4 +1,4 @@
-const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", S = "millisecond", d = {
+const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second", E = "millisecond", d = {
   parse_duration(n) {
     const e = /([0-9]+)(y|m|d|h|min|s|ms)/gm.exec(n);
     if (e !== null) {
@@ -100,7 +100,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       n.getHours() + (e === D ? t : 0),
       n.getMinutes() + (e === Y ? t : 0),
       n.getSeconds() + (e === T ? t : 0),
-      n.getMilliseconds() + (e === S ? t : 0)
+      n.getMilliseconds() + (e === E ? t : 0)
     ];
     return new Date(...i);
   },
@@ -112,7 +112,7 @@ const v = "year", k = "month", M = "day", D = "hour", Y = "minute", T = "second"
       [D]: 3,
       [Y]: 2,
       [T]: 1,
-      [S]: 0
+      [E]: 0
     };
     function i(r) {
       const a = e[t];
@@ -1325,8 +1325,8 @@ class N {
       let e = [];
       e = t.dependencies.map((i) => {
         console.log(i);
-        const s = this.get_task(task_id);
-        if (!s) return;
+        const s = this.get_task(i.id);
+        if (console.log("FROM TASK", s._index), console.log("TO TASK", i._index), !s) return;
         const r = new C(
           this,
           this.bars[s._index],
@@ -1532,15 +1532,15 @@ class N {
       ), m = this.upperTexts.find(
         (w) => w.textContent === y
       ), m !== this.$current && (this.$current && this.$current.classList.remove("current-upper"), m.classList.add("current-upper"), this.$current = m), i = _.currentTarget.scrollLeft;
-      let [E, H, X] = this.get_start_end_positions();
+      let [S, H, X] = this.get_start_end_positions();
       i > X + 100 ? (this.$adjust.innerHTML = "&larr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
           left: H,
           behavior: "smooth"
         });
-      }) : i + _.currentTarget.offsetWidth < E - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
+      }) : i + _.currentTarget.offsetWidth < S - 100 ? (this.$adjust.innerHTML = "&rarr;", this.$adjust.classList.remove("hide"), this.$adjust.onclick = () => {
         this.$container.scrollTo({
-          left: E,
+          left: S,
           behavior: "smooth"
         });
       }) : this.$adjust.classList.add("hide"), p && (g = c.map((w) => this.get_bar(w)), this.options.auto_move_label && g.forEach((w) => {
