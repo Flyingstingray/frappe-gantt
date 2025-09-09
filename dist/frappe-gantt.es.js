@@ -262,7 +262,7 @@ class q {
   }
   calculate_path() {
     let t;
-    (this.type === "FS" || this.type === "FF") && (t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth()), (this.type === "SS" || this.type === "SF") && (t = this.from_task.$bar.getX());
+    (this.type === "FS" || this.type === "FF") && (t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth()), (this.type === "SS" || this.type === "SF") && (t = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 8);
     const e = () => this.to_task.$bar.getX() < t + this.gantt.options.padding && t > this.from_task.$bar.getX() + this.gantt.options.padding;
     for (; e(); )
       t -= 10;
