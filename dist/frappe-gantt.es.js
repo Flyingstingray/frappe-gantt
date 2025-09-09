@@ -925,7 +925,7 @@ class N {
         e.dependencies && (a = e.dependencies.map((o) => ({
           id: o.id.trim().replaceAll(" ", "_"),
           type: o.type || "FS"
-        }))), e.dependencies = a;
+        }))), e.dependencies = a, console.log(e.dependencies);
       }
       return e.id ? typeof e.id == "string" ? e.id = e.id.replaceAll(" ", "_") : e.id = `${e.id}` : e.id = j(e), e;
     }).filter((e) => e), this.setup_dependencies();
@@ -1325,7 +1325,7 @@ class N {
       let e = [];
       e = t.dependencies.map((i) => {
         console.log(i);
-        const s = this.get_task(i.id);
+        const s = this.get_task(i);
         if (console.log("FROM TASK", s._index), console.log("TO TASK", i._index), !s) return;
         const r = new C(
           this,

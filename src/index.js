@@ -204,6 +204,7 @@ export default class Gantt {
                         }));
                     }
                     task.dependencies = deps;
+                    console.log(task.dependencies);
                 } 
 
                 // uids
@@ -907,7 +908,7 @@ export default class Gantt {
             arrows = task.dependencies
                 .map((task) => {
                     console.log(task);
-                    const dependency = this.get_task(task.id);
+                    const dependency = this.get_task(task);
                     console.log("FROM TASK", dependency._index);
                     console.log("TO TASK", task._index);
                     if (!dependency) return;
