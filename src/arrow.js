@@ -21,7 +21,7 @@ export default class Arrow {
         }
 
         if (this.type === 'SS' || this.type === 'SF') {
-            start_x = this.from_task.$bar.getX() + this.from_task.$bar.getWidth()  / 8;
+            start_x = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 10;
         }
 
         const condition = () =>
