@@ -905,6 +905,7 @@ export default class Gantt {
         this.arrows = [];
         for (let task of this.tasks) {
             let arrows = [];
+            /*
             arrows = task.dependencies
                 .map((task) => {
                     console.log(task);
@@ -922,10 +923,15 @@ export default class Gantt {
                     return arrow;
                 })
                 .filter(Boolean); // filter falsy values
-            /*
+            */
             arrows = task.dependencies
                 .map((task_id) => {
+                    console.log(task_id);
                     const dependency = this.get_task(task_id);
+                    
+                    console.log("FROM TASK", dependency._index);
+                    console.log("TO TASK", task._index);
+                    
                     if (!dependency) return;
                     const arrow = new Arrow(
                         this,
@@ -936,7 +942,7 @@ export default class Gantt {
                     return arrow;
                 })
                 .filter(Boolean); // filter falsy values
-            */
+
             this.arrows = this.arrows.concat(arrows);
         }
     }

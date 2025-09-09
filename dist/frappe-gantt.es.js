@@ -1326,14 +1326,13 @@ class N {
       e = t.dependencies.map((i) => {
         console.log(i);
         const s = this.get_task(i);
-        if (console.log("FROM TASK", s._index), console.log("TO TASK", i._index), !s) return;
+        if (console.log("FROM TASK", s._index), console.log("TO TASK", t._index), !s) return;
         const r = new C(
           this,
           this.bars[s._index],
           // from_task
-          this.bars[i._index],
+          this.bars[t._index]
           // to_task
-          i.type
         );
         return this.layers.arrow.appendChild(r.element), r;
       }).filter(Boolean), this.arrows = this.arrows.concat(e);
