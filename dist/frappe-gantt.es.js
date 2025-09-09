@@ -557,7 +557,7 @@ class F {
   update_bar_position({ x: t = null, width: e = null }) {
     const i = this.$bar;
     if (t) {
-      if (!this.task.dependencies.map((a) => (console.log(a), this.gantt.get_bar(a).$bar.getX())).reduce((a, o) => a && t >= o, !0)) return;
+      if (!this.task.dependencies.map((a) => this.gantt.get_bar(a.id).$bar.getX()).reduce((a, o) => a && t >= o, !0)) return;
       this.update_attr(i, "x", t), this.x = t, this.$date_highlight.style.left = t + "px";
     }
     e > 0 && (this.update_attr(i, "width", e), this.$date_highlight.style.width = e + "px"), this.update_label_position(), this.update_handle_position(), this.date_changed(), this.compute_duration(), this.gantt.options.show_expected_progress && this.update_expected_progressbar_position(), this.update_progressbar_position(), this.update_arrow_position();
