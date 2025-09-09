@@ -928,6 +928,7 @@ export default class Gantt {
                 .map((task_id) => {
                     console.log(task_id);
                     const dependency = this.get_task(task_id);
+                    console.log(dependency);
                     
                     console.log("FROM TASK", dependency._index);
                     console.log("TO TASK", task._index);

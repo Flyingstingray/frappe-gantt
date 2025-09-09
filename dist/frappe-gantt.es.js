@@ -1326,7 +1326,7 @@ class N {
       e = t.dependencies.map((i) => {
         console.log(i);
         const s = this.get_task(i);
-        if (console.log("FROM TASK", s._index), console.log("TO TASK", t._index), !s) return;
+        if (console.log(s), console.log("FROM TASK", s._index), console.log("TO TASK", t._index), !s) return;
         const r = new C(
           this,
           this.bars[s._index],
