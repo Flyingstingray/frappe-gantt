@@ -926,19 +926,14 @@ export default class Gantt {
             */
             arrows = task.dependencies
                 .map((task_id) => {
-                    console.log(task_id);
-                    console.log(task_id.id);
                     const dependency = this.get_task(task_id.id);
-                    console.log(dependency);
-                    
-                    console.log("FROM TASK", dependency._index);
-                    console.log("TO TASK", task._index);
                     
                     if (!dependency) return;
                     const arrow = new Arrow(
                         this,
                         this.bars[dependency._index], // from_task
                         this.bars[task._index], // to_task
+                        task_id.type
                     );
                     this.layers.arrow.appendChild(arrow.element);
                     return arrow;
