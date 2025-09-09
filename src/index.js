@@ -927,6 +927,7 @@ export default class Gantt {
             arrows = task.dependencies
                 .map((task_id) => {
                     console.log(task_id);
+                    console.log(task_id.id);
                     const dependency = this.get_task(task_id);
                     console.log(dependency);
                     
