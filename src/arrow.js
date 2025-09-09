@@ -17,7 +17,7 @@ export default class Arrow {
         //    this.from_task.$bar.getX() + this.from_task.$bar.getWidth() / 2;
 
         if (this.type === 'FS' || this.type === 'FF') {
-            start_x = this.from_task.$bar.getX() + this.from_task.$bar.getWidth();
+            start_x = this.from_task.$bar.getX() + this.from_task.$bar.getWidth() * 1.5;
         }
 
         if (this.type === 'SS' || this.type === 'SF') {
